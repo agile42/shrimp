@@ -65,7 +65,7 @@ module Shrimp
         Shrimp.configuration.phantomjs,
         command_config_file,
         SCRIPT_FILE,
-        @source.to_s.shellescape,
+        @source.to_s.shellescape.gsub('&', '\\\&'),
         @outfile,
         format,
         zoom,
