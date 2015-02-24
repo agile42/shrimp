@@ -57,7 +57,7 @@ module Shrimp
       rendering_time, timeout           = options[:rendering_time], options[:rendering_timeout]
       @outfile                          ||= "#{options[:tmpdir]}/#{Digest::MD5.hexdigest((Time.now.to_i + rand(9001)).to_s)}.pdf"
 
-      [Shrimp.configuration.phantomjs, SCRIPT_FILE, @source.to_s.gsub('&', '\\\&'), @outfile, format, zoom, margin, orientation, cookie_file, rendering_time, timeout].join(" ")
+      [Shrimp.configuration.phantomjs, SCRIPT_FILE, @source.to_s.gsub('&', '\\\&').gsub('(', '\\\(').gsub(')', '\\\)'), @outfile, format, zoom, margin, orientation, cookie_file, rendering_time, timeout].join(" ")
     end
 
     # Public: initializes a new Phantom Object
