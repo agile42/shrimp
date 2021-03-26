@@ -56,7 +56,7 @@ module Shrimp
       format, zoom, orientation = options[:format], options[:zoom], options[:orientation]
       rendering_time, timeout           = options[:rendering_time], options[:rendering_timeout]
       @outfile                          ||= "#{options[:tmpdir]}/#{Digest::MD5.hexdigest((Time.now.to_i + rand(9001)).to_s)}.pdf"
-
+      command_config_file               = "--config=#{options[:command_config_file]}"
       if options[:margin].is_a? Hash
         margin_left = options[:margin][:left] || '1cm'
         margin_top = options[:margin][:top] || '1cm'
@@ -66,7 +66,7 @@ module Shrimp
         margin_left, margin_top, margin_right, margin_bottom = options[:margin], options[:margin], options[:margin], options[:margin]
       end
 
-      [Shrimp.configuration.phantomjs, SCRIPT_FILE, @source.to_s.gsub('&', '\\\&').gsub('(', '\\\(').gsub(')', '\\\)'), @outfile, format, zoom, margin_left, margin_top, margin_right, margin_bottom, orientation, cookie_file, rendering_time, timeout].join(" ")
+      [Shrimp.configuration.phantomjs, command_config_file, SCRIPT_FILE, @source.to_s.gsub('&', '\\\&').gsub('(', '\\\(').gsub(')', '\\\)'), @outfile, format, zoom, margin_left, margin_top, margin_right, margin_bottom, orientation, cookie_file, rendering_time, timeout].join(" ")
     end
 
     # Public: initializes a new Phantom Object
